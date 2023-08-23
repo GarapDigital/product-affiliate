@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('product_affiliates', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_id');
+            $table->string('product_affiliate_link');
+            $table->integer('type')->nullable();
             $table->timestamps();
         });
     }

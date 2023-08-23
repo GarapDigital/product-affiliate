@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('member_commissions', function (Blueprint $table) {
             $table->id();
+            $table->string('ref_code')->unique();
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('product_affiliate_id');
+            $table->double('total_order_price');
+            $table->double('commission_percent');
+            $table->double('total_commission')->comment('Not in percent');
             $table->timestamps();
         });
     }

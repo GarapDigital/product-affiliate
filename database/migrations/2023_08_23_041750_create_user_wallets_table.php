@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('user_wallets', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('member_id');
+            $table->double('total_balance')->nullable();
+            $table->double('minimum_withdraw')->nullable();
             $table->timestamps();
         });
     }

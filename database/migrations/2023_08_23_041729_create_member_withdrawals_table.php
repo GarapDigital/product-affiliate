@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('member_withdrawals', function (Blueprint $table) {
             $table->id();
+            $table->string('ref_code')->unique();
+            $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('product_affiliate_id');
+            $table->double('total_withdraw');
+            $table->integer('status')->comment('0:proces, 1:success');
             $table->timestamps();
         });
     }

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('user_product_affiliates', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_affiliate_id');
             $table->timestamps();
         });
     }
