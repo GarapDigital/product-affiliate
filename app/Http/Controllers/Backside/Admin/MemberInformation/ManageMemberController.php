@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backside\Admin\MemberInformation;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class ManageMemberController extends Controller
      */
     public function indexMemberView(): View
     {
-        return view('backside.pages.admin.member-information.index');
+        $members = User::where('role', 'member')->latest()->get();
+
+        return view('backside.pages.admin.member-information.index', compact('members'));
     }
 
     /**

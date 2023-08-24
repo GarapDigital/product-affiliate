@@ -19,19 +19,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($members as $member)
                             <tr>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
+                                <td class="text-center align-middle">{{ $loop->iteration }}</td>
+                                <td class="text-center align-middle">{{ $member->name }}</td>
+                                <td class="text-center align-middle">{{ $member->email }}</td>
+                                <td class="text-center align-middle">{{ $member->phone_number }}</td>
                                 <td class="text-center align-middle">
-                                    <a href="{{ route('admin.manage-member.product-link-view', ['member_id' => 1]) }}" class="btn btn-sm btn-secondary">
+                                    <a href="{{ route('admin.manage-member.product-link-view', ['member_id' => $member->id]) }}" class="btn btn-sm btn-secondary">
                                         <i class="fas fa-box"></i>
                                     </a>
-                                    <a href="{{ route('admin.manage-member.mutation-view', ['member_id' => 1]) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('admin.manage-member.mutation-view', ['member_id' => $member->id]) }}" class="btn btn-sm btn-info">
                                         <i class="fa fa-dollar-sign"></i>
                                     </a>
-                                    <a href="{{ route('admin.manage-member.edit-view', ['member_id' => 1]) }}" class="btn btn-sm btn-success">
+                                    <a href="{{ route('admin.manage-member.edit-view', ['member_id' => $member->id]) }}" class="btn btn-sm btn-success">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                     <a href="" class="btn btn-sm btn-danger btn-delete">
@@ -39,6 +40,11 @@
                                     </a>
                                 </td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td class="text-center" colspan="5">{{ __('Empty') }}</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                         <tfoot>
                             <tr>
