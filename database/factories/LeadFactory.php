@@ -17,10 +17,6 @@ class LeadFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->phoneNumber(),
-        ];
+        return User::where('role', 'customer')->get();
     }
 }

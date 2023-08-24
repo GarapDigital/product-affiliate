@@ -18,12 +18,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($leads as $lead)
                             <tr>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
+                                <td class="text-center align-middle">{{ $loop->iteration }}</td>
+                                <td class="text-center align-middle">{{ $lead->name }}</td>
+                                <td class="text-center align-middle">{{ $lead->email }}</td>
+                                <td class="text-center align-middle">{{ $lead->phone_number }}</td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td class="text-center" colspan="4">{{ __('Empty') }}</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                         <tfoot>
                             <tr>
