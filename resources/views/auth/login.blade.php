@@ -8,12 +8,12 @@
             <div class="col-6">
                 <div class="card border border-0 shadow p-4">
                     <h3 class="text-uppercase mb-4 text-center">az product - login</h3>
-                    @if (session()->has('fail'))
+                    @if (session()->has('errors'))
                         <div class="alert alert-danger">
-                            {{ session()->pull('fail') }}
+                            {{ session()->pull('errors') }}
                         </div>
                     @endif
-                    <form action="" method="POST">
+                    <form action="{{ route('auth.login-action') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="">Email</label>
