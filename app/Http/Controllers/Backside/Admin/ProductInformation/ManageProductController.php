@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Backside\Admin\ProductInformation;
 
+use App\Action\Product\CreateProduct;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\CreateProductRequest;
+use App\Models\Product;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ManageProductController extends Controller
@@ -15,7 +19,9 @@ class ManageProductController extends Controller
      */
     public function indexProductView(): View
     {
-        return view('backside.pages.admin.manage-product.index');
+        $products = Product::latest()->get();
+
+        return view('backside.pages.admin.manage-product.index', compact('products'));
     }
 
     /**
@@ -26,6 +32,18 @@ class ManageProductController extends Controller
     public function createProductForm(): View
     {
         return view('backside.pages.admin.manage-product.create');
+    }
+
+    /**
+     * do some action for creating product.
+     *
+     * @return RedirectResponse
+     */
+    public function storeProductAction(CreateProductRequest $request): RedirectResponse
+    {
+        $product_action = (new CreateProduct($request->validated()))->execute();
+
+        return redirect()->route('admin.manage-product.index-view')->with('success', $product_action->message);
     }
 
     /**

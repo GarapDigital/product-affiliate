@@ -24,11 +24,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($products as $product)
                             <tr>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
+                                <td class="text-center align-middle">{{ $loop->iteration }}</td>
+                                <td class="text-center align-middle">{{ $product->product_name }}</td>
+                                <td class="text-center align-middle">
+                                    <a href="{{ $product->product_image }}" class="btn btn-sm btn-primary" target="_blank">
+                                        Show Image
+                                    </a>
+                                </td>
+                                <td class="text-center align-middle">{{ Helper::rupiahFormatter($product->price) }}</td>
                                 <td class="text-center align-middle">
                                     <a href="{{ route('admin.manage-product.detail-product-view', ['product_id' => 1]) }}" class="btn btn-sm btn-info">
                                         <i class="fa fa-eye"></i>
@@ -41,6 +46,11 @@
                                     </a>
                                 </td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td class="text-center" colspan="5">{{ __('Empty') }}</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                         <tfoot>
                             <tr>

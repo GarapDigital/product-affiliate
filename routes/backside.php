@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['prefix' => 'manage-product', 'as' => 'manage-product.'], function () {
             Route::get('/', [ManageProductController::class, 'indexProductView'])->name('index-view');
             Route::get('/create', [ManageProductController::class, 'createProductForm'])->name('create-view');
+            Route::post('/create', [ManageProductController::class, 'storeProductAction'])->name('store-action');
             Route::get('/{product_id}/detail-product', [ManageProductController::class, 'detailProductView'])->name('detail-product-view');
             Route::get('/{product_id}/edit', [ManageProductController::class, 'editProductView'])->name('edit-product-view');
         });
