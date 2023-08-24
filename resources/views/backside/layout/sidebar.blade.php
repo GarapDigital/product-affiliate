@@ -5,13 +5,16 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
 
+                @role('admin')
                 <li class="sidebar-item selected">
                     <a class="sidebar-link" href="{{ route('admin.dashboard') }}" aria-expanded="false">
                         <i class="fas fa-home"></i>
                         <span class="hide-menu">Dashboard Admin</span>
                     </a>
                 </li>
+                @endrole
 
+                @role('member')
                 <!-- Member-->
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('member.dashboard') }}" aria-expanded="false">
@@ -27,7 +30,9 @@
                     </a>
                 </li>
                 <!-- End Member-->
+                @endrole
 
+                @role('customer')
                 <!-- Customer -->
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('customer.dashboard') }}" aria-expanded="false">
@@ -36,7 +41,9 @@
                     </a>
                 </li>
                 <!-- End Customer -->
+                @endrole
 
+                @role('member')
                 <!-- Member-->
                 <li class="list-divider"></li>
 
@@ -60,7 +67,9 @@
                     </a>
                 </li>
                 <!-- End Member-->
+                @endrole
 
+                @role('customer')
                 <!-- Customer -->
                 <li class="list-divider"></li>
 
@@ -80,7 +89,9 @@
                     </a>
                 </li>
                 <!-- End Customer -->
+                @endrole
 
+                @role('admin')
                 <li class="list-divider"></li>
 
                 <li class="nav-small-cap"><span class="hide-menu">Member Information</span></li>
@@ -131,6 +142,7 @@
                         <span class="hide-menu">Contact Us Setting</span>
                     </a>
                 </li>
+                @endrole
 
             </ul>
         </nav>
