@@ -24,7 +24,7 @@ Route::middleware(['auth'])->group(function () {
     | Admin Route Group Section
     |--------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'check-role:admin'], function () {
         Route::get('/dashboard', [DashboardAdminController::class, 'dashboardAdminView'])->name('dashboard');
 
         Route::group(['prefix' => 'manage-member', 'as' => 'manage-member.'], function () {
@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
     | Member Route Group Section
     |--------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'member', 'as' => 'member.'], function () {
+    Route::group(['prefix' => 'member', 'as' => 'member.', 'middleware' => 'check-role:member'], function () {
         Route::get('/dashboard', [DashboardMemberController::class, 'dashboardAdminView'])->name('dashboard');
         Route::get('/user-profile', [UserProfileController::class, 'userProfileView'])->name('user-profile');
 
@@ -82,7 +82,7 @@ Route::middleware(['auth'])->group(function () {
     | Customer Route Group Section
     |--------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
+    Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => 'check-role:customer'], function () {
         Route::get('/dashboard', [DashboardCustomerController::class, 'customerDashboardView'])->name('dashboard');
         Route::get('/order-transaction-history', [CustomerOrderTransactionHistoryController::class, 'customerOrderTransactionHistoryView'])->name('order-transaction-history-view');
         Route::get('/contact-us', [CustomerAdminContactController::class, 'customerContactAdminView'])->name('contact-us-view');
