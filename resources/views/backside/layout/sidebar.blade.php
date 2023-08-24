@@ -23,7 +23,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item{{ request()->routeIs('member.user-profile') ? 'selected' : '' }}">
+                <li class="sidebar-item {{ request()->routeIs('member.user-profile') ? 'selected' : '' }}">
                     <a class="sidebar-link" href="{{ route('member.user-profile') }}" aria-expanded="false">
                         <i class="fas fa-user"></i>
                         <span class="hide-menu">User Profile</span>
@@ -49,7 +49,7 @@
 
                 <li class="nav-small-cap"><span class="hide-menu">Product Link Information</span></li>
 
-                <li class="sidebar-item {{ route('member.product-link.*') ? 'selected' : '' }}">
+                <li class="sidebar-item {{ request()->routeIs('member.product-link.*') ? 'selected' : '' }}">
                     <a class="sidebar-link" href="{{ route('member.product-link.index-view') }}" aria-expanded="false">
                         <i class="fas fa-link"></i>
                         <span class="hide-menu">Product Link</span>

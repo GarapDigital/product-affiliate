@@ -64,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'member', 'as' => 'member.', 'middleware' => 'check-role:member'], function () {
         Route::get('/dashboard', [DashboardMemberController::class, 'dashboardAdminView'])->name('dashboard');
         Route::get('/user-profile', [UserProfileController::class, 'userProfileView'])->name('user-profile');
+        Route::post('/user-profile', [UserProfileController::class, 'updateUserProfile'])->name('update-user-profile-action');
 
         Route::group(['prefix' => 'product-link', 'as' => 'product-link.'], function () {
             Route::get('/', [ManageProductLinkController::class, 'indexMemberProductLink'])->name('index-view');
