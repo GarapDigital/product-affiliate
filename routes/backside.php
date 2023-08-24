@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/create', [ManageProductController::class, 'storeProductAction'])->name('store-action');
             Route::get('/{product_id}/detail-product', [ManageProductController::class, 'detailProductView'])->name('detail-product-view');
             Route::get('/{product_id}/edit', [ManageProductController::class, 'editProductView'])->name('edit-product-view');
+            Route::put('/{product_id}/update', [ManageProductController::class, 'updateProductAction'])->name('update-product-action');
         });
 
         Route::group(['prefix' => 'manage-lead', 'as' => 'manage-lead.'], function () {

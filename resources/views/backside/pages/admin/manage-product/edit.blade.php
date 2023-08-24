@@ -24,7 +24,7 @@
                     </ul>
                 </div>
                 @endif
-                <form action="" method="POST">
+                <form action="{{ route('admin.manage-product.update-product-action', $product->data->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-body">
@@ -32,7 +32,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Product Name <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Name" name="name" value="{{ old('product_name') }}" required>
+                                    <input type="text" class="form-control" placeholder="Name" name="product_name" value="{{ old('product_name', $product->data->product_name) }}" required>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Product Description <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <textarea placeholder="Product Description" class="form-control" name="description" rows="5" required>{{ old('description') }}</textarea>
+                                    <textarea placeholder="Product Description" class="form-control" name="product_description" rows="5" required>{{ old('product_description', $product->data->product_description) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Product Price <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <input type="number" class="form-control" placeholder="Product Price" name="price" value="{{ old('price') }}" required>
+                                    <input type="number" class="form-control" placeholder="Product Price" name="price" value="{{ old('price', $product->data->price) }}" required>
                                 </div>
                             </div>
                         </div>
@@ -56,8 +56,8 @@
                             <div class="col-md-12">
                                 <label class="form-label">Product Image <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <img src="{{ asset('dummy-assets/no-image.png') }}" class="img-fluid mb-3" style="width: 250px; height: 200px;">
-                                    <input type="file" class="form-control" name="product_image" required>
+                                    <img src="{{ $product->data->product_image }}" class="img-fluid mb-3 show-image-from-input" style="width: 250px; height: 200px;" id="show-image-from-input">
+                                    <input type="file" class="form-control input-image-type" name="product_image" accept="image/png, image/jpeg">
                                 </div>
                             </div>
                         </div>
@@ -66,8 +66,8 @@
                                 <label class="form-label">Product Commission <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="product_price">%</span>
-                                        <input type="number" class="form-control" placeholder="Commission (Percent)" aria-describedby="product_price" required>
+                                        <span class="input-group-text" id="commission_percent">%</span>
+                                        <input type="number" name="commission_percent" class="form-control" placeholder="Commission (Percent)" aria-describedby="commission_percent" value="{{ old('commission_percent', Helper::convertDoubleToPercent($product->data->commission_percent)) }}" required>
                                     </div>
                                 </div>
                             </div>
