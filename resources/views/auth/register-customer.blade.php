@@ -13,11 +13,11 @@
                             {{ session()->pull('fail') }}
                         </div>
                     @endif
-                    <form action="" method="POST">
+                    <form action="{{ route('auth.register-customer.action') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="">Fullname</label>
-                            <input type="text" class="form-control" name="fullname">
+                            <input type="text" class="form-control" name="name">
                         </div>
                         <div class="mb-3">
                             <label for="">Email</label>
