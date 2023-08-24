@@ -28,7 +28,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Email Subject Format <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Email Subject Format" name="email_subject" value="{{ old('email_subject') }}" required>
+                                    <input type="text" class="form-control" placeholder="Email Subject Format" name="email_subject_format" value="{{ old('email_subject_format', $contact_setting->email_subject_format) }}" required>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Customer Service Email <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <input type="email" class="form-control" placeholder="Customer Service Email" name="customer_service_email" value="{{ old('customer_service_email') }}" required>
+                                    <input type="email" class="form-control" placeholder="Customer Service Email" name="customer_service_email" value="{{ old('customer_service_email', $contact_setting->customer_service_email) }}" required>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Company Email <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <input type="email" class="form-control" placeholder="Company Email" name="company_email" value="{{ old('company_email') }}" required>
+                                    <input type="email" class="form-control" placeholder="Company Email" name="company_email" value="{{ old('company_email', $contact_setting->company_email) }}" required>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Customer Service Whatsapp <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <input type="tel" class="form-control" placeholder="Customer Service Whatsapp" name="customer_service_whatsapp" value="{{ old('customer_service_whatsapp') }}" required>
+                                    <input type="tel" class="form-control" placeholder="Customer Service Whatsapp" name="customer_service_whatsapp" value="{{ old('customer_service_whatsapp', $contact_setting->customer_service_whatsapp) }}" required>
                                 </div>
                             </div>
                         </div>
