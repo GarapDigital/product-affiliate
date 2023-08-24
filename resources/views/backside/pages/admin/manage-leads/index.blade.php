@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($leads as $lead)
+                            @forelse($leads as $lead)
                             <tr>
                                 <td class="text-center align-middle">{{ $loop->iteration }}</td>
                                 <td class="text-center align-middle">{{ $lead->name }}</td>
