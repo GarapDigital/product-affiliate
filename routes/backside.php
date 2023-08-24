@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['prefix' => 'system-setting', 'as' => 'system-setting.'], function () {
             Route::group(['prefix' => 'contact-us-setting', 'as' => 'contact-us-setting.'], function () {
                 Route::get('/', [ContactUsSettingController::class, 'contactUsSettingView'])->name('edit-view');
+                Route::post('/update', [ContactUsSettingController::class, 'updateContactSettingConfig'])->name('update-action');
             });
         });
     });

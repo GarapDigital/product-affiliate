@@ -20,9 +20,8 @@
                     </ul>
                 </div>
                 @endif
-                <form action="" method="POST">
+                <form action="{{ route('admin.system-setting.contact-us-setting.update-action') }}" method="POST">
                     @csrf
-                    @method('PUT')
                     <div class="form-body">
                         <div class="row mt-3">
                             <div class="col-md-12">
