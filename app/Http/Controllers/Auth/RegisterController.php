@@ -83,12 +83,36 @@ class RegisterController extends Controller
      */
     public function customerRegisterAction(RegisterFromSystemRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
-        $data['role'] = 'customer';
+        DB::beginTransaction();
 
-        $action = (new RegisterFromSystem($data))->execute();
+        try {
+            $data = $request->validated();
+            $data['password'] = Hash::make($data['password']);
+            $data['role'] = 'customer';
 
-        return redirect()->route('auth.login-view')->with('success', $action->message);
+            $register_action = (new RegisterFromSystem($data))->execute();
+
+            $send_personal_access_token_action = (new SendTokenAction([
+                'token_type' => 'user-activation',
+                'token_name' => 'User Activation Token',
+                'token_abilities' => 'This Token For Activation Purposes',
+            ]))->execute();
+
+            Mail::to($register_action->data->email)->send(new RegisterNotificationMail([
+                'account_name' => $register_action->data->name,
+                'account_email' => $register_action->data->email,
+                'activation_url' => route('auth.user-activation', [
+                    'token' => $send_personal_access_token_action->data['token'],
+                    'user_id' => $register_action->data['id'],
+                ]),
+            ]));
+
+            DB::commit();
+
+            return redirect()->route('auth.login-view')->with('success', 'Check your email For User Activation');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            dd($ex->getMessage());
+        }
     }
 }
