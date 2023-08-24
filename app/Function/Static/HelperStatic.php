@@ -15,4 +15,9 @@ class HelperStatic
     {
         return rupiahFormatter($number);
     }
+
+    public static function convertDoubleToPercent($double_number)
+    {
+        return convertDoubleToPercent($double_number);
+    }
 }

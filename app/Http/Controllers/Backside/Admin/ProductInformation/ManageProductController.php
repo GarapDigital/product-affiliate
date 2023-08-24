@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backside\Admin\ProductInformation;
 
 use App\Action\Product\CreateProduct;
+use App\Action\Product\FindProduct;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Product;
@@ -54,7 +55,9 @@ class ManageProductController extends Controller
      */
     public function detailProductView($product_id): View
     {
-        return view('backside.pages.admin.manage-product.detail');
+        $product = (new FindProduct(['product_id' => $product_id]))->execute();
+
+        return view('backside.pages.admin.manage-product.detail', compact('product'));
     }
 
     /**

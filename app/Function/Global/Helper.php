@@ -21,3 +21,14 @@ if (!function_exists('rupiahFormatter')) {
         return number_format($number, 2, ',', '.');
     }
 }
+
+if (!function_exists('convertDoubleToPercent')) {
+    function convertDoubleToPercent($double_number)
+    {
+        if ($double_number <= 0) {
+            throw new InvalidArgumentException('Percent Number Cannot be Lower than equal to zero:0');
+        }
+
+        return $double_number*100;
+    }
+}

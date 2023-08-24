@@ -39,7 +39,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Product Description <span class="text-danger">*</span> </label>
                                 <div class="form-group mb-3">
-                                    <textarea placeholder="Product Description" class="form-control" name="description" rows="5" required>{{ old('description') }}</textarea>
+                                    <textarea placeholder="Product Description" class="form-control" name="product_description" rows="5" required>{{ old('product_description') }}</textarea>
                                 </div>
                             </div>
                         </div>
