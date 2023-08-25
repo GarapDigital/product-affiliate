@@ -24,9 +24,8 @@
                     </ul>
                 </div>
                 @endif
-                <form action="" method="POST">
+                <form action="{{ route('member.product-link.store-action') }}" method="POST">
                     @csrf
-                    @method('PUT')
                     <div class="form-body">
                         <div class="row mt-3">
                             <div class="col-md-12">
@@ -34,7 +33,9 @@
                                 <div class="form-group mb-3">
                                     <select name="product_id" class="form-control" required>
                                         <option value="" selected hidden>Select Products</option>
-                                        <option value="">Product A - 5% Commission</option>
+                                        @foreach($products as $product)
+                                        <option value="{{ $product->id }}">{{ $product->product_name.' - Commission '.Helper::convertDoubleToPercent($product->commission_percent).'%' }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

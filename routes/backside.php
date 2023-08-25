@@ -69,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['prefix' => 'product-link', 'as' => 'product-link.'], function () {
             Route::get('/', [ManageProductLinkController::class, 'indexMemberProductLink'])->name('index-view');
             Route::get('/create-product-link', [ManageProductLinkController::class, 'generateProductLinkView'])->name('create-view');
+            Route::post('/create-product-link', [ManageProductLinkController::class, 'generateProductLinkAction'])->name('store-action');
             Route::get('/{product_link_id}/edit', [ManageProductLinkController::class, 'editProductLinkView'])->name('edit-product-link-view');
             Route::get('/{product_link_id}/{product_id}/show-related-product', [ManageProductLinkController::class, 'showRelatedProductView'])->name('show-related-product');
         });

@@ -24,13 +24,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($product_affiliates as $product_affiliate)
                             <tr>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
-                                <td class="text-center align-middle">-</td>
+                                <td class="text-center align-middle">{{ $loop->iteration }}</td>
+                                <td class="text-center align-middle">{{ $product_affiliate->product->product_name }}</td>
+                                <td class="text-center align-middle">{{ $product_affiliate->product_affiliate_link }}</td>
+                                <td class="text-center align-middle">{{ Helper::convertDoubleToPercent($product_affiliate->product->commission_percent).'%' }}</td>
                                 <td class="text-center align-middle">
-                                    <a href="{{ route('member.product-link.show-related-product', ['product_id' => 1, 'product_link_id' => 1]) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('member.product-link.show-related-product', ['product_id' => $product_affiliate->product->id, 'product_link_id' => $product_affiliate->id]) }}" class="btn btn-sm btn-info">
                                         <i class="fas fa-box"></i>
                                     </a>
                                     <a href="{{ route('member.product-link.edit-product-link-view', ['product_link_id' => 1]) }}" class="btn btn-sm btn-success">
@@ -41,6 +42,11 @@
                                     </a>
                                 </td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td class="text-center" colspan="5">{{ __('Empty') }}</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                         <tfoot>
                             <tr>
