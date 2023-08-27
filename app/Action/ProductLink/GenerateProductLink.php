@@ -3,8 +3,9 @@
 namespace App\Action\ProductLink;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 
-class UpdateProductLink
+class GenerateProductLink
 {
     protected $dto;
 
@@ -26,14 +27,17 @@ class UpdateProductLink
             ];
         }
 
-        $logged_member->productAffiliate->where('id', $this->dto['product_link_id'])->first()->update([
+        $logged_member->productAffiliate()->create([
             'product_id' => $this->dto['product_id'],
+            'product_affiliate_link' => route('a.show-related-product-view', [
+                'affiliate_code' => Str::random(6),
+            ]),
         ]);
 
         return (object) [
             'response_code' => 200,
             'success' => true,
-            'message' => 'Link of Product Successfully Updated',
+            'message' => 'Link of Product Successfully Generated',
             'data' => $logged_member->productAffiliate,
         ];
     }

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Backside\Member\ProductLink;
 
-use App\Action\ProductLink\CreateProductAffiliate;
-use App\Action\ProductLink\CreateUserProductAffiliate;
 use App\Action\ProductLink\GenerateProductLink;
 use App\Action\ProductLink\UpdateProductLink;
 use App\Http\Controllers\Controller;
@@ -15,7 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+
 
 class ManageProductLinkController extends Controller
 {
@@ -51,15 +49,12 @@ class ManageProductLinkController extends Controller
      */
     public function generateProductLinkAction(GenerateProductLinkRequest $request): RedirectResponse
     {
-        $logged_member = User::with('productAffiliate')->where('id', auth()->id())->where('role', 'member')->first();
-        $logged_member->productAffiliate()->create([
+        $generate_product_link_action = (new GenerateProductLink([
+            'member_id' => auth()->id(),
             'product_id' => $request->product_id,
-            'product_affiliate_link' => route('a.show-related-product-view', [
-                'affiliate_code' => Str::random(6),
-            ]),
-        ]);
+        ]))->execute();
 
-        return redirect()->route('member.product-link.index-view')->with('success', 'Product Link Successfuly Generated');
+        return redirect()->route('member.product-link.index-view')->with('success', $generate_product_link_action->message);
     }
 
     /**
