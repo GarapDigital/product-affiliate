@@ -24,7 +24,7 @@
                     </ul>
                 </div>
                 @endif
-                <form action="" method="POST">
+                <form action="{{ route('member.product-link.update-product-link-action', ['product_link_id' => $product_link_id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-body">

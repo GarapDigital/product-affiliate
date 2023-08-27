@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backside\Member\ProductLink;
 use App\Action\ProductLink\CreateProductAffiliate;
 use App\Action\ProductLink\CreateUserProductAffiliate;
 use App\Action\ProductLink\GenerateProductLink;
+use App\Action\ProductLink\UpdateProductLink;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductLink\GenerateProductLinkRequest;
 use App\Models\Product;
@@ -81,7 +82,24 @@ class ManageProductLinkController extends Controller
         $products = Product::latest()->get();
         $product_affiliate = ProductAffiliate::where('id', $product_link_id)->first();
 
-        return view('backside.pages.member.product-link.edit', compact('products', 'product_affiliate'));
+        return view('backside.pages.member.product-link.edit', compact('products', 'product_affiliate', 'product_link_id'));
+    }
+
+    /**
+     * do some update with products.
+     *
+     * @param int $product_link_id
+     * @return RedirectResponse
+     */
+    public function updateProductLinkAction(GenerateProductLinkRequest $request, $product_link_id): RedirectResponse
+    {
+        $update_product_link_action = (new UpdateProductLink([
+            'member_id' => auth()->id(),
+            'product_id' => $request->product_id,
+            'product_link_id' => $product_link_id,
+        ]))->execute();
+
+        return redirect()->route('member.product-link.index-view')->with('success', $update_product_link_action->message);
     }
 
     /**
