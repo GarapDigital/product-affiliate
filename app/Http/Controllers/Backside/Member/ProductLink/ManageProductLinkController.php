@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ManageProductLinkController extends Controller
 {
@@ -26,7 +27,7 @@ class ManageProductLinkController extends Controller
     public function indexMemberProductLink(): View
     {
         $logged_member = User::with('productAffiliate')->where('id', auth()->id())->where('role', 'member')->first();
-        $product_affiliates = $logged_member->productAffiliate()->with('product')->get();
+        $product_affiliates = $logged_member->productAffiliate()->with('product', 'member')->get();
 
         return view('backside.pages.member.product-link.index', compact('product_affiliates'));
     }
@@ -50,25 +51,15 @@ class ManageProductLinkController extends Controller
      */
     public function generateProductLinkAction(GenerateProductLinkRequest $request): RedirectResponse
     {
-        DB::beginTransaction();
+        $logged_member = User::with('productAffiliate')->where('id', auth()->id())->where('role', 'member')->first();
+        $logged_member->productAffiliate()->create([
+            'product_id' => $request->product_id,
+            'product_affiliate_link' => route('a.show-related-product-view', [
+                'affiliate_code' => Str::random(6),
+            ]),
+        ]);
 
-        try {
-            $create_product_affiliate = (new CreateProductAffiliate([
-                'product_id' => $request->product_id,
-            ]))->execute();
-
-            $create_user_product_affiliate = (new CreateUserProductAffiliate([
-                'user_id' => auth()->id(),
-                'product_affiliate_id' => $create_product_affiliate->data->id,
-            ]))->execute();
-
-            DB::commit();
-
-            return redirect()->route('member.product-link.index-view')->with('success', 'Product Link Successfuly Generated');
-        } catch (\Exception $ex) {
-            DB::rollBack();
-            dd($ex->getMessage());
-        }
+        return redirect()->route('member.product-link.index-view')->with('success', 'Product Link Successfuly Generated');
     }
 
     /**

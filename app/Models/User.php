@@ -47,6 +47,8 @@ class User extends Authenticatable
 
     public function productAffiliate(): BelongsToMany
     {
-        return $this->belongsToMany(ProductAffiliate::class, 'user_product_affiliates', 'user_id', 'product_affiliate_id');
+        return $this->belongsToMany(ProductAffiliate::class, 'user_product_affiliates', 'user_id', 'product_affiliate_id')
+            ->using(UserProductAffiliate::class)
+            ->withTimestamps();
     }
 }
